@@ -13,11 +13,24 @@ class installer{
 
   public function exec(){
     foreach ($this->repositories as $path => $origin){
-      if ($path !== __DIR__ && !file_exists($path)) {
+      if (!file_exists($path) && $path !== __DIR__.'/mdl/') {
          $clone = $this->git('clone');  
          $clone($origin.' '.$path);    
       }
-      else if ($path !== __DIR__) {
+      else if (!file_exists($path)){
+          $clone = $this->git('clone');  
+          $clone('-b MOODLE_28_STABLE '.$origin.' '.$path);
+          /*
+         shell_exec('cd '.$path);
+         $remote = $this->git('remote');
+         $r = $remote('-v');
+         if ($r == ''){
+            $clone = $this->git('clone');  
+            $clone('-b MOODLE_28_STABLE '.$origin.' '.$path);
+         }
+        */
+      }
+      else {
          shell_exec('cd '.$path);
          $fetch = $this->git('fetch');
          $fetch('origin');
@@ -25,15 +38,7 @@ class installer{
          $merge = $this->git('merge');
          $merge('origin/master');
       }
-      else {
-        $remote = $this->git('remote');
-        $r = $remote('-v');
-        var_dump($r);
-        if ($r == ''){
-            $clone = $this->git('clone');  
-            $clone('-b MOODLE_28_STABLE '.$origin.' '.$path);
-        }
-      }
+      
     }
   }
 
@@ -50,5 +55,6 @@ class installer{
 
 $test = new installer();
 $test->add_repo('https://github.com/moodle/moodle.git');
+$test->add_repo('https://redmine.cegepadistance.ca/local_scripts.git','local/scripts');
 $test->exec();
 
