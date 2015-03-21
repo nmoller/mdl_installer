@@ -55,6 +55,6 @@ class installer{
 
 $test = new installer();
 $test->add_repo('https://github.com/moodle/moodle.git');
-$test->add_repo('https://redmine.cegepadistance.ca/local_scripts.git','local/scripts');
+$test->add_repo('https://github.com/nmoller/local_scripts.git','local/scripts');
 $test->exec();
 
