@@ -78,9 +78,11 @@ class installer{
 
 }
 
-$test = new installer('test_ins', 'cad28');
+$test = new installer('test_ins');
 // $test->debug();
-$test->add_repo('ssh://git@redmine.cegepadistance.ca/moodle_cad.git');
-$test->add_repo('ssh://git@redmine.cegepadistance.ca/passerelle.git','local/passerelle');
+$test->add_repo('https://github.com/moodle/moodle.git');
+$test->add_repo('https://github.com/mgage/wwlink.git','block/wwlink');
+$test->add_repo('https://github.com/mgage/wwassignment.git','mod/wwassignment');
+
 $test->exec();
 
