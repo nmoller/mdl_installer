@@ -81,7 +81,7 @@ class installer{
 $test = new installer('test_ins');
 // $test->debug();
 $test->add_repo('https://github.com/moodle/moodle.git');
-$test->add_repo('https://github.com/mgage/wwlink.git','block/wwlink');
+$test->add_repo('https://github.com/mgage/wwlink.git','blocks/wwlink');
 $test->add_repo('https://github.com/mgage/wwassignment.git','mod/wwassignment');
 
 $test->exec();
