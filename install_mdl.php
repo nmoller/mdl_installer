@@ -20,15 +20,25 @@ class installer{
 
   public function exec(){
     foreach ($this->repositories as $path => $origin){
-      if (!file_exists($path) && $path !== $this->root) {
+      // echo $path.PHP_EOL;
+      // echo $this->root.PHP_EOL;
+      if (!file_exists($path) && $path !== $this->root.'/') {
          $this->message("Clonning");
          $clone = $this->git('clone');  
          $clone($origin.' '.$path);    
       }
       else if (!file_exists($path)){
+          /*
+          $init = $this->git('init');
+          $init = $init('');
+          $fetch = $this->git('fetch');
+          $fetch($origin.' '.$this->follows.':refs/remotes/origin/'.$this->follows);
+          */
+         
           $clone = $this->git('clone');  
-          $clone('-b '.$this->follows.' '.$origin.' '.$path);
+          $clone('-b '.$this->follows.' --single-branch '.$origin.' '.$path);
           $this->message("MDL-created");
+          
           /*
          shell_exec('cd '.$path);
          $remote = $this->git('remote');
@@ -56,8 +66,8 @@ class installer{
   public function git($command){
     return function($param) use ($command) {
         $gitDo = 'git '.$command.' '.$param;
-        // echo $gitDo; 
-        shell_exec($gitDo);            
+        if ($this->debug) echo $gitDo.PHP_EOL; 
+        else shell_exec($gitDo);            
     };
   }
 
@@ -68,9 +78,9 @@ class installer{
 
 }
 
-$test = new installer();
-$test->debug();
-$test->add_repo('https://github.com/moodle/moodle.git');
-$test->add_repo('https://github.com/nmoller/local_scripts.git','local/scripts');
+$test = new installer('test_ins', 'cad28');
+// $test->debug();
+$test->add_repo('ssh://git@redmine.cegepadistance.ca/moodle_cad.git');
+$test->add_repo('ssh://git@redmine.cegepadistance.ca/passerelle.git','local/passerelle');
 $test->exec();
 
