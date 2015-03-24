@@ -1,5 +1,5 @@
 <?php
-class installer{
+class Installer{
   public $repositories = array();
   public $root;
   public $debug = false;
@@ -20,34 +20,15 @@ class installer{
 
   public function exec(){
     foreach ($this->repositories as $path => $origin){
-      // echo $path.PHP_EOL;
-      // echo $this->root.PHP_EOL;
       if (!file_exists($path) && $path !== $this->root.'/') {
          $this->message("Clonning");
          $clone = $this->git('clone');  
          $clone($origin.' '.$path);    
       }
       else if (!file_exists($path)){
-          /*
-          $init = $this->git('init');
-          $init = $init('');
-          $fetch = $this->git('fetch');
-          $fetch($origin.' '.$this->follows.':refs/remotes/origin/'.$this->follows);
-          */
-         
           $clone = $this->git('clone');  
           $clone('-b '.$this->follows.' --single-branch '.$origin.' '.$path);
           $this->message("MDL-created");
-          
-          /*
-         shell_exec('cd '.$path);
-         $remote = $this->git('remote');
-         $r = $remote('-v');
-         if ($r == ''){
-            $clone = $this->git('clone');  
-            $clone('-b MOODLE_28_STABLE '.$origin.' '.$path);
-         }
-        */
       }
       else {
          shell_exec('cd '.$path);
@@ -78,14 +59,10 @@ class installer{
 
 }
 
-$test = new installer('test_ins');
-// $test->debug();
+$test = new Installer('test_ins');
 $test->add_repo('https://github.com/moodle/moodle.git');
 $test->add_repo('https://github.com/mgage/wwlink.git','blocks/wwlink');
 $test->add_repo('https://github.com/mgage/wwassignment.git','mod/wwassignment');
-
-// mysql -u root -p[root_password] mdl < mdl.sql
-// pour config prefix amdl_
 
 $test->exec();
 
