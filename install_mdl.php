@@ -10,7 +10,7 @@ class Installer{
 
   }
 
-  public function add_repo($origin, $path = ''){
+  public function addRepo($origin, $path = ''){
     $this->repositories[$this->root.'/'.$path] = $origin;
   }
 
@@ -60,9 +60,9 @@ class Installer{
 }
 
 $test = new Installer('test_ins');
-$test->add_repo('https://github.com/moodle/moodle.git');
-$test->add_repo('https://github.com/mgage/wwlink.git','blocks/wwlink');
-$test->add_repo('https://github.com/mgage/wwassignment.git','mod/wwassignment');
+$test->addRepo('https://github.com/moodle/moodle.git');
+$test->addRepo('https://github.com/mgage/wwlink.git','blocks/wwlink');
+$test->addRepo('https://github.com/mgage/wwassignment.git','mod/wwassignment');
 
 $test->exec();
 
