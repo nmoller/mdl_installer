@@ -84,5 +84,8 @@ $test->add_repo('https://github.com/moodle/moodle.git');
 $test->add_repo('https://github.com/mgage/wwlink.git','blocks/wwlink');
 $test->add_repo('https://github.com/mgage/wwassignment.git','mod/wwassignment');
 
+// mysql -u root -p[root_password] mdl < mdl.sql
+// pour config prefix amdl_
+
 $test->exec();
 
