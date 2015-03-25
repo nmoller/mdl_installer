@@ -1,4 +1,5 @@
 <?php
+include 'install_mdl.php';
 
 $test = new Installer('test_ins');
 $test->addRepo('https://github.com/moodle/moodle.git');
